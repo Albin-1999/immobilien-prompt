@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immobilien-Marktupdate Prompt - Österreich & Deutschland</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .prompt-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e9ecef;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .info-box strong {
+            color: #1976D2;
+        }
+        
+        .sources {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        
+        .sources h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .sources a {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .sources a:hover {
+            background: #e9ecef;
+            padding-left: 12px;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Immobilien-Marktupdate</h1>
+            <p>Österreich & Deutschland – Automatisierter Prompt</p>
+        </header>
+        
+        <div class="content">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('prompt')">📝 Prompt</button>
+                <button class="tab-btn" onclick="switchTab('anleitung')">📖 Anleitung</button>
+                <button class="tab-btn" onclick="switchTab('quellen')">🔗 Quellen</button>
+            </div>
+            
+            <!-- PROMPT TAB -->
+            <div id="prompt" class="tab-content active">
+                <div class="section">
+                    <h2>Dein täglicher Immobilien-Update Prompt</h2>
+                    
+                    <div class="info-box">
+                        <strong>💡 Wie funktioniert's?</strong><br>
+                        Kopiere den Prompt unten und gib ihn bei Claude (oder ChatGPT) ein. Du erhältst dann automatisch einen aktuellen Marktbericht für Österreich und Deutschland.
+                    </div>
+                    
+                    <div class="prompt-box" id="promptText">Du bist ein Experte für Immobilienmärkte in Österreich und Deutschland. 
+Erstelle mir einen detaillierten täglichen Marktbericht für Wohnimmobilien 
+und Bestandsimmobilien (85% Fokus) in Österreich und Deutschland.
+
+WICHTIG: Nutze web search um die neuesten Informationen zu finden. 
+Suche nach Daten der letzten Wochen/Monate, die noch relevant sind.
+
+STRUKTUR DES BERICHTS:
+
+═══════════════════════════════════════════════════════════════
+
+1. ÖSTERREICH - ALLGEMEINE MARKTTRENDS
+   - Überblick über die aktuelle Marktlage
+   - Prognosen für die nächsten Monate
+   - Wirtschaftliche Einflussfaktoren
+
+2. ÖSTERREICH - PREISANALYSE (nach Bundesländern)
+   Für jedes Bundesland (Burgenland, Kärnten, Niederösterreich, 
+   Oberösterreich, Salzburg, Steiermark, Tirol, Vorarlberg, Wien):
+   - Durchschnittliche Kaufpreise pro m² für Wohnimmobilien
+   - Durchschnittliche Mietpreise pro m²
+   - Preistrends (steigend/fallend/stabil)
+   - Besonderheiten der Region
+   
+   WIEN BESONDERS DETAILLIERT:
+   - Nach Bezirken aufschlüsseln (zumindest die wichtigsten)
+   - Hotspots und weniger gefragte Gegenden
+   - Trends in verschiedenen Bezirken
+
+3. ÖSTERREICH - FINANZIERUNGSBEDINGUNGEN
+   - Aktuelle Hypothekenzinssätze
+   - Zinstrends
+   - Finanzierbarkeitsindex (Kaufpreis vs. Einkommen)
+   - Auswirkungen auf den Markt
+
+4. ÖSTERREICH - GESETZESÄNDERUNGEN & STEUERLICHES
+   - Neue Gesetze/Verordnungen im Immobiliensektor
+   - Steueränderungen (Grunderwerbsteuer, Immobiliensteuer, etc.)
+   - Förderungen und Programme
+   - Rechtliche Entwicklungen
+
+═══════════════════════════════════════════════════════════════
+
+5. DEUTSCHLAND - ALLGEMEINE MARKTTRENDS
+   - Überblick über die aktuelle Marktlage
+   - Prognosen für die nächsten Monate
+   - Wirtschaftliche Einflussfaktoren
+
+6. DEUTSCHLAND - PREISANALYSE (nach Bundesländern)
+   Für die Top-Regionen (Berlin, Bayern, Baden-Württemberg, 
+   Nordrhein-Westfalen, Hessen und andere relevante):
+   - Durchschnittliche Kaufpreise pro m² für Wohnimmobilien
+   - Durchschnittliche Mietpreise pro m²
+   - Preistrends (steigend/fallend/stabil)
+   - Besonderheiten der Regionen
+
+7. DEUTSCHLAND - FINANZIERUNGSBEDINGUNGEN
+   - Aktuelle Hypothekenzinssätze
+   - Zinstrends
+   - Finanzierbarkeitsindex
+   - Auswirkungen auf den Markt
+
+8. DEUTSCHLAND - GESETZESÄNDERUNGEN & STEUERLICHES
+   - Neue Gesetze/Verordnungen im Immobiliensektor
+   - Steueränderungen (Grunderwerbsteuer, Immobilienmaklergebühren, etc.)
+   - Förderungen und Programme
+   - Rechtliche Entwicklungen
+
+═══════════════════════════════════════════════════════════════
+
+9. VERGLEICH ÖSTERREICH vs. DEUTSCHLAND
+   - Wo ist es günstiger?
+   - Welche Markttrends unterscheiden sich?
+   - Investitionsmöglichkeiten
+
+10. TOP-INSIGHTS & HANDLUNGSEMPFEHLUNGEN
+    - Was hat sich diese Woche/diesen Monat verändert?
+    - Für wen ist jetzt eine gute Zeit zu kaufen/investieren?
+    - Welche Regionen sind besonders interessant?
+    - Worauf sollte man achten?
+
+11. QUELLEN & LINKS
+    - Alle verwendeten Quellen mit direkten Links
+    - Offizielle Datenquellen
+    - Marktanalyse-Portale
+    - Rechtliche Informationsquellen
+
+FORMATIERUNG:
+- Nutze klare Überschriften und Unterüberschriften
+- Zahlen und Prozentsätze deutlich hervorheben
+- Bei wichtigen Änderungen einen WICHTIG/ALERT-Hinweis hinzufügen
+- Quellen mit klickbaren Links am Ende
+- Vergleiche mit Vorperioden anstellen (wo möglich)
+
+ZEITRAHMEN:
+- Aktuelle Daten der letzten 2-4 Wochen verwenden
+- Ältere aber relevante Daten sind okay, wenn sie Trends zeigen
+- Immer angeben, wie aktuell die Daten sind
+
+FOKUS:
+- 85% Wohnimmobilien und Bestandsimmobilien
+- 15% andere Immobilientypen (nur kurze Erwähnung)
+- Wien besonders detailliert
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="copyPrompt()">📋 Prompt kopieren</button>
+                        <a href="https://claude.ai" class="btn btn-primary" target="_blank">🤖 Mit Claude öffnen</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ANLEITUNG TAB -->
+            <div id="anleitung" class="tab-content">
+                <div class="section">
+                    <h2>📖 Schritt-für-Schritt Anleitung</h2>
+                    
+                    <h3 style="color: #667eea; margin-top: 20px;">Schritt 1: Prompt kopieren</h3>
+                    <p>Klicke auf "Prompt kopieren" im oberen Bereich.</p>
+                    
+                    <h3 style="color: #667eea; margin-top: 20px;">Schritt 2: Bei Claude/ChatGPT einfügen</h3>
+                    <p>Gehe zu <a href="https://claude.ai" target="_blank" style="color: #667eea;">claude.ai</a> oder <a href="https://chatgpt.com" target="_blank" style="color: #667eea;">chatgpt.com</a> und füge den Prompt in das Textfeld ein.</p>
+                    
+                    <h3 style="color: #667eea; margin-top: 20px;">Schritt 3: Sende den Prompt ab</h3>
+                    <p>Drücke Enter oder klicke auf "Senden". Die KI wird dann einen detaillierten Marktbericht erstellen.</p>
+                    
+                    <h3 style="color: #667eea; margin-top: 20px;">Schritt 4: Ergebnisse speichern</h3>
+                    <p>Du kannst die Ergebnisse:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Direkt kopieren und in Word/Google Docs speichern</li>
+                        <li>Als PDF exportieren</li>
+                        <li>Für später speichern im Chat-Verlauf</li>
+                    </ul>
+                    
+                    <div class="info-box" style="margin-top: 20px;">
+                        <strong>💡 Pro-Tipp:</strong><br>
+                        Nutze diesen Prompt regelmäßig (z.B. wöchentlich oder monatlich), um immer die neuesten Marktdaten zu erhalten. Die Ergebnisse werden mit jedem Update aktueller!
+                    </div>
+                </div>
+            </div>
+            
+            <!-- QUELLEN TAB -->
+            <div id="quellen" class="tab-content">
+                <div class="section">
+                    <h2>🔗 Quellen & Links</h2>
+                    
+                    <h3 style="color: #667eea; margin-top: 20px;">Österreich</h3>
+                    <div class="sources">
+                        <h3>Offizielle Datenquellen:</h3>
+                        <a href="https://www.statistik.at/" target="_blank">📊 Statistik Austria</a>
+                        <a href="https://www.oenb.at/" target="_blank">🏦 Österreichische Nationalbank (OeNB)</a>
+                        <a href="https://www.wko.at/" target="_blank">💼 Wirtschaftskammer Österreich</a>
+                        
+                        <h3 style="margin-top: 20px;">Immobilien-Portale:</h3>
+                        <a href="https://www.infina.at/" target="_blank">💰 INFINA (Finanzierungsexperte)</a>
+                        <a href="https://www.immopreise.at/" target="_blank">📈 Immopreise.at</a>
+                        <a href="https://vires.at/" target="_blank">🏠 Vires Immobilien</a>
+                        <a href="https://www.immobilienscout24.at/" target="_blank">🔍 Immobilienscout24</a>
+                        <a href="https://willhaben.at/" target="_blank">📱 Willhaben</a>
+                        
+                        <h3 style="margin-top: 20px;">Gesetzliche Informationen:</h3>
+                        <a href="https://www.bmf.gv.at/" target="_blank">⚖️ Bundeszentralamt für Steuern</a>
+                        <a href="https://www.ris.bka.gv.at/" target="_blank">📋 RIS (Rechtsinformationssystem)</a>
+                    </div>
+                    
+                    <h3 style="color: #667eea; margin-top: 30px;">Deutschland</h3>
+                    <div class="sources">
+                        <h3>Offizielle Datenquellen:</h3>
+                        <a href="https://www.destatis.de/" target="_blank">📊 Statistisches Bundesamt</a>
+                        <a href="https://www.bundesbank.de/" target="_blank">🏦 Deutsche Bundesbank</a>
+                        
+                        <h3 style="margin-top: 20px;">Immobilien-Portale:</h3>
+                        <a href="https://www.drklein.de/" target="_blank">💰 Dr. Klein (Bauzinsen)</a>
+                        <a href="https://www.immowelt.de/" target="_blank">🏠 Immowelt</a>
+                        <a href="https://www.immobilienscout24.de/" target="_blank">🔍 Immobilienscout24</a>
+                        <a href="https://www.engelvoelkers.com/" target="_blank">👑 Engel & Völkers</a>
+                        <a href="https://www.interhyp.de/" target="_blank">💳 Interhyp</a>
+                        
+                        <h3 style="margin-top: 20px;">Finanz-Informationen:</h3>
+                        <a href="https://www.finanztip.de/" target="_blank">💡 Finanztip</a>
+                        <a href="https://www.businessinsider.de/" target="_blank">📰 Business Insider</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Section -->
+            <div class="section" style="margin-top: 40px; background: #f8f9fa; padding: 20px; border-radius: 6px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">ℹ️ Über diesen Prompt</h3>
+                <p>Dieser Prompt wurde speziell für die Immobilienmarkt-Analyse in Österreich und Deutschland entwickelt. Er nutzt Web-Search, um die neuesten Daten zu sammeln und einen umfassenden Marktbericht zu erstellen.</p>
+                <p style="margin-top: 10px;"><strong>Aktualisiert:</strong> Mai 2026 | <strong>Fokus:</strong> Wien + alle österreichischen Bundesländer + Deutschland</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🏠 Immobilien-Marktupdate Prompt | Erstellt für Marktanalyse in Österreich & Deutschland</p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: #999;">Diese Seite wird auf GitHub Pages gehostet und ist kostenlos verfügbar.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        function copyPrompt() {
+            const promptText = document.getElementById('promptText').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('✅ Prompt kopiert! Du kannst ihn jetzt bei Claude einfügen.');
+            }).catch(() => {
+                alert('❌ Fehler beim Kopieren. Bitte versuche es manuell.');
+            });
+        }
+    </script>
+</body>
+</html>
